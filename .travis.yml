@@ -4,7 +4,7 @@ services :
 before_install:
     - docker build -t img_react_app -f Dockerfile.dev .
 script :
-    - docker run img_react_app
+    - docker run -e CI=true img_react_app  npm run test -- --coverage
 deploy :
     provider : elasticbeanstalk
     region :  "us-east-2" # DockerReact-env.eba-qfnucaeu.us-east-2.elasticbeanstalk.com (this is frm AWS console)
