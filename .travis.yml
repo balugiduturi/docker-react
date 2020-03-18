@@ -5,3 +5,15 @@ before_install:
     - docker build -t img_react_app -f Dockerfile.dev .
 script :
     - docker run img_react_app npm run test
+deploy :
+    provider : elasticbeanstalk
+    region :  "us-east-2" # DockerReact-env.eba-qfnucaeu.us-east-2.elasticbeanstalk.com (this is frm AWS console)
+    app : "docker-react" # docker-react (this is the application which we given in AWS console while creting the project)
+    env : "DockerReact-env" # DockerReact-env (this is the from AWS console)
+    bucket_name : "elasticbeanstalk-us-east-2-157676378434" # (this will create autometically while create the project in AWS,  it will be available in S3 services)
+    bucket_path : "docker-react" # (This bucket will create autometically under the above mentioned bucket name with the custome path)
+    on :
+        branch : master
+    access_key_id : $AWS_ACCESS_KEY
+    secret_access_key : 
+        secure : "$AWS_SECRET_KEY"
